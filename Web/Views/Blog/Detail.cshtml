@@ -204,12 +204,12 @@
                         <h4 class="small-title">Leave a Reply</h4>
                         <div class="row">
                             <div class="col-lg-12">
-                                <form asp-action="AddBlogComment" class="form-wrapper">
+                                <form id="commentForm" asp-action="AddBlogComment" class="form-wrapper">
                                     <input asp-for="Comment.Name" class="form-control" placeholder="Your name">
                                     <input asp-for="Comment.Email" type="text" class="form-control" placeholder="Email address">
                                     <input asp-for="Comment.WebSite" type="text" class="form-control" placeholder="Website">
                                     <textarea asp-for="Comment.CommentText" class="form-control" placeholder="Your comment"></textarea>
-                                    <button type="submit" class="btn btn-primary">Submit Comment</button>
+                                    <button id="submitButton" type="submit" class="btn btn-primary">Submit Comment</button>
                                     <input type="hidden" name="blogId" value="@Model.Blog.ID" />
                                 </form>
                             </div>
@@ -370,3 +370,35 @@
         </div><!-- end row -->
     </div><!-- end container -->
 </section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        var form = document.getElementById("commentForm")
+        var button = document.getElementById("submitButton")
+
+        
+
+        button.addEventListener('click',function(e){
+            e.preventDefault()
+
+            var data = $("#commentForm").serialize();
+        
+
+            $.ajax({
+            type: "POST",
+            url: "@Url.Action("AddBlogComment")",
+            data: data,
+            dataType: "json",
+            success: function (msg) {
+                console.log(msg);
+            },
+            error: function (req, status, error) {
+                console.log(msg);
+                alert("Xeta bas verdi.")
+            }
+        });
+        })
+
+
+    </script>

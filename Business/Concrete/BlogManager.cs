@@ -45,6 +45,12 @@ namespace Business.Concrete
             return blogs;
         }
 
+        public List<Blog> GetAll()
+        {
+            var blogs = _context.Blogs.ToList();
+            return blogs;
+        }
+
         public Blog GetById(int? id)
         {
             
