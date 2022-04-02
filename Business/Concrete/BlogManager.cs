@@ -29,9 +29,19 @@ namespace Business.Concrete
             _context.SaveChanges();
         }
 
-        public List<Blog> GetAll()
+        public List<Blog> GetAll(int? pageNo)
         {
-            var blogs = _context.Blogs.Include(x => x.Category).Include(x => x.K205User).ToList();
+            if (pageNo == null)
+            {
+                pageNo = 1;
+            }
+
+
+
+            int currentPage = 2 * pageNo.Value - 2;
+
+
+            var blogs = _context.Blogs.Skip(currentPage).Take(2).Include(x => x.Category).Include(x => x.K205User).ToList();
             return blogs;
         }
 

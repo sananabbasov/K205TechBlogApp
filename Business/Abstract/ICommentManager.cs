@@ -10,5 +10,6 @@ namespace Business.Abstract
     public interface ICommentManager
     {
         List<Comment> GetBlogComment(int blogId);
+        void AddComment(Comment comment);
     }
 }

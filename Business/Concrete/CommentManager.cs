@@ -18,6 +18,13 @@ namespace Business.Concrete
             _context = context;
         }
 
+        public void AddComment(Comment comment)
+        {
+            comment.PublishDate = DateTime.Now;
+            _context.Add(comment);
+            _context.SaveChanges();
+        }
+
         public List<Comment> GetBlogComment(int blogId)
         {
             var blogComment = _context.Comments.Where(x => x.BlogID == blogId).ToList();

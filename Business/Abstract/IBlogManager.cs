@@ -9,7 +9,7 @@ namespace Business.Abstract
 {
     public interface IBlogManager
     {
-        List<Blog> GetAll();
+        List<Blog> GetAll(int? pageNo);
         List<Blog> Similar(int catId, string userId, int blogId);
         void Create(Blog blog);
         Blog GetById(int? id);
