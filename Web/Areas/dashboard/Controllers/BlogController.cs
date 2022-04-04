@@ -25,9 +25,9 @@ namespace Web.Areas.dashboard.Controllers
         }
 
         // GET: BlogController
-        public IActionResult Index(int? pageNo)
+        public IActionResult Index(int? pageNo, int? recordSize = 2)
         {
-            var blogs = _blogManager.GetAll(pageNo);
+            var blogs = _blogManager.GetAll(pageNo,recordSize.Value);
             return View(blogs);
         }
 

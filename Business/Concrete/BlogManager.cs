@@ -29,7 +29,7 @@ namespace Business.Concrete
             _context.SaveChanges();
         }
 
-        public List<Blog> GetAll(int? pageNo)
+        public List<Blog> GetAll(int? pageNo, int recordSize)
         {
             if (pageNo == null)
             {
@@ -41,7 +41,7 @@ namespace Business.Concrete
             int currentPage = 2 * pageNo.Value - 2;
 
 
-            var blogs = _context.Blogs.Skip(currentPage).Take(2).Include(x => x.Category).Include(x => x.K205User).ToList();
+            var blogs = _context.Blogs.Skip(currentPage).Take(recordSize).Include(x => x.Category).Include(x => x.K205User).ToList();
             return blogs;
         }
 
@@ -51,12 +51,21 @@ namespace Business.Concrete
             return blogs;
         }
 
-        public Blog GetById(int? id)
+
+        public int GetAllCount()
+        {
+            var blogs = _context.Blogs.ToList();
+            return blogs.Count();
+        }
+
+        public Blog GetById(int? id) // 4
         {
             
             var blog = _context.Blogs.Include(x=>x.Category).Include(x=>x.K205User).FirstOrDefault(x => x.ID == id.Value);
 
-            blog.Hit += 1;
+            blog.Hit += 1;  // 133 + 1, 134 + 1
+
+
 
             Update(blog);
 

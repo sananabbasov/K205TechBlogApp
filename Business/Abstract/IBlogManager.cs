@@ -9,8 +9,9 @@ namespace Business.Abstract
 {
     public interface IBlogManager
     {
-        List<Blog> GetAll(int? pageNo);
+        List<Blog> GetAll(int? pageNo, int recordSize);
         List<Blog> GetAll();
+        int GetAllCount();
         List<Blog> Similar(int catId, string userId, int blogId);
         void Create(Blog blog);
         Blog GetById(int? id);

@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Helper;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Web.Models;
@@ -16,22 +17,16 @@ namespace Web.Controllers
             _blogManager = blogManager;
         }
 
-        public IActionResult Index(int? pageNo, int? nextPage)
+        public IActionResult Index(int? recordSize = 2, int? pageNo = 1)
         {
-
-            var blogs = _blogManager.GetAll();
-           
-
-           
-
-            double pageCount = Convert.ToDouble(blogs.Count) / 2;
-            ViewBag.PageSize = Math.Round(pageCount);
-            ViewBag.PageNext = pageNo+1;
 
             HomeVM vm = new()
             {
-                Blogs = _blogManager.GetAll(pageNo)
+                Blogs = _blogManager.GetAll(pageNo, recordSize.Value),
             };
+
+
+            vm.Pager = new Pager(_blogManager.GetAllCount(), pageNo,2,3);
             return View(vm);
         }
 
